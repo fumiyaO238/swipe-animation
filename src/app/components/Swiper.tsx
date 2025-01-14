@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { cardData, CardType } from "./SwipeCards";
 
@@ -15,7 +15,24 @@ export const Swiper = () => {
     setCards((prev) => prev.filter((v) => v.id !== id));
   };
 
-  console.log("@", cards);
+  useEffect(() => {
+    // キーボードイベントをリッスン
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Print Screen キーが押された場合
+      if (event.key === "PrintScreen") {
+        event.preventDefault(); // PrintScreenのデフォルトの動作を無効化
+        alert("Print Screen (スクリーンショット)は無効です");
+      }
+    };
+
+    // イベントリスナーを追加
+    document.addEventListener("keydown", handleKeyDown);
+
+    // コンポーネントがアンマウントされたときにイベントリスナーを削除
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[salmon] grid place-items-center gap-10">

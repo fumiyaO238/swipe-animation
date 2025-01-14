@@ -11,7 +11,6 @@ type CardProps = {
   setCards: Dispatch<SetStateAction<CardType[]>>;
 };
 export const Card = ({ id, url, cards, setCards }: CardProps) => {
-  console.log("card", id);
   const x = useMotionValue(0);
 
   const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
